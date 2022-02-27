@@ -11,11 +11,11 @@ app = Flask(__name__)
 if not 'WEBSITE_HOSTNAME' in os.environ:
    # local development, where we'll use environment variables
    print("Loading config.development and environment variables from .env file.")
-   app.config.from_object('config.development')
+   app.config.from_object('azureproject.development')
 else:
    # production
    print("Loading config.production.")
-   app.config.from_object('config.production')
+   app.config.from_object('azureproject.production')
 
 print('DATABASE_URI = ' + str(app.config.get('DATABASE_URI')))
 app.config.update(
@@ -25,7 +25,7 @@ app.config.update(
 
 # initialize the database connection
 db = SQLAlchemy(app)
-from models import Guest
+from restaurant_review.models import Guest
 db.create_all()
 db.session.commit()
 
@@ -34,7 +34,7 @@ migrate = Migrate(app, db)
 
 @app.route('/')
 def view_registered_guests():
-    from models import Guest
+    from restaurant_review.models import Guest
     guests = Guest.query.all()
     return render_template('guest_list.html', guests=guests)
 
@@ -46,7 +46,7 @@ def view_registration_form():
 
 @app.route('/register', methods=['POST'])
 def register_guest():
-    from models import Guest
+    from restaurant_review.models import Guest
     name = request.form.get('name')
     email = request.form.get('email')
 
