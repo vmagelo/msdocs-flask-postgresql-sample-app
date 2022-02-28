@@ -74,7 +74,7 @@
         <main class="container">                
             <h1>Restaurants</h1>
    
-            {% if restaurants %}
+            {% if True %}
                 <table class="table">
                     <thead>
                         <tr>
@@ -87,7 +87,7 @@
                         {% for restaurant in restaurants %}
                             <tr>
                                 <td>{{ restaurant.name }}</td>
-                                <td>{{ star_rating(restaurant.avg_rating, restaurant.review_count)  }}   </td>
+                                <td>{% include "star_rating.html" %}</td>
                                 <td class="text-end"><a href="{{ url_for('details', id=restaurant.id) }}" class="btn btn-sm btn-primary">Details</a></td>
                             </tr>
                         {% endfor %}

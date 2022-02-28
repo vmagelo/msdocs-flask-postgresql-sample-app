@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy.sql import func
-from sqlalchemy import select
+from sqlalchemy import Integer, null, select, Column
 from flask_wtf.csrf import CSRFProtect
 from datetime import datetime
 import os
@@ -39,17 +39,15 @@ migrate = Migrate(app, db)
 def index():
     from restaurant_review.models import Restaurant
     print('Request for index page received')
-    restaurants = Restaurant.query.all()
-    #restaurants = Restaurant.annotate(avg_rating=func.avg('review__rating')).annotate(review_count=func.count('review'))
-    #return render_template('index.html', restaurants=restaurants )
-    return render_template('index.html')
+    restaurants = Restaurant.query.all()    
+    return render_template('index.html', restaurants=restaurants)
 
 @app.route('/<int:id>', methods=['GET'])
 def details(id):
-    from restaurant_review.models import Restaurant
-    print('Request for restaurant details page received')
-    restaurant = select(Restaurant).where(Restaurant.name==id)
-    return render_template('details.html', restaurant=restaurant)
+    from restaurant_review.models import Restaurant, Review
+    restaurant = Restaurant.query.where(Restaurant.id == id).first()
+    reviews = Review.query.where(Review.restaurant==id)
+    return render_template('details.html', restaurant=restaurant, reviews=reviews)
 
 @app.route('/create', methods=['GET'])
 def create_restaurant():
@@ -82,8 +80,7 @@ def add_restaurant():
 @app.route('/review/<int:id>', methods=['POST'])
 @csrf.exempt
 def add_review(id):
-    from restaurant_review.models import Restaurant, Review
-    restaurant = select(Restaurant).where(Restaurant.id==id)
+    from restaurant_review.models import Review
     try:
         user_name = request.values.get('user_name')
         rating = request.values.get('rating')
@@ -95,20 +92,32 @@ def add_review(id):
         })
     else:
         review = Review()
-        review.restaurant = restaurant
+        review.restaurant = id
         review.review_date = datetime.now()
         review.user_name = user_name
-        review.rating = rating
+        review.rating = int(rating)
         review.review_text = review_text
-        Review.save(review)
+        db.session.add(review)
+        db.session.commit()
                 
     return redirect(url_for('details', id=id))        
 
 @app.context_processor
 def utility_processor():
-    def star_rating(avg_rating, review_count):    
+    def star_rating(id):
+        from restaurant_review.models import Review
+        reviews = Review.query.where(Review.restaurant==id)
+
+        ratings = []
+        review_count = 0;        
+        for review in reviews:
+            ratings += [review.rating]
+            review_count += 1
+
+        avg_rating = sum(ratings)/len(ratings) if ratings else 0
         stars_percent = round((avg_rating / 5.0) * 100) if review_count > 0 else 0
         return {'avg_rating': avg_rating, 'review_count': review_count, 'stars_percent': stars_percent}
+
     return dict(star_rating=star_rating)
 
 if __name__ == '__main__':
