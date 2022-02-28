@@ -15,3 +15,9 @@ Temporary instructions for running:
 * flask db init
 * flask db migrate -m "first migration"
 * flask run
+
+To do:
+
+* create layout.html and put all common code in there
+* ref bootstrap and others stuff from cdn
+* investigate /admin functionality with Flask-Admin
