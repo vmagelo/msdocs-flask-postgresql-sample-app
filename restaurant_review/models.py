@@ -25,7 +25,7 @@ class Review(db.Model):
 
     @validates('rating')
     def validate_rating(self, key, value):
-        assert value is None or (1 <= value <= 100)
+        assert value is None or (1 <= value <= 5)
         return value
 
     def __str__(self):
