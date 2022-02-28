@@ -1,8 +1,7 @@
-{% load static %}
 <!doctype html>
 <head>
     <title>Hello Azure - Python Quickstart</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
 
     <style>
         body {
@@ -16,7 +15,7 @@
         <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
             <div class="container">
               <a class="navbar-brand" href="/">
-                <img src="{% static 'images/azure-icon.svg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                <img src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 Azure Restaurant Review
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +39,7 @@
         <main class="container">                
             <h1>Add New Restaurant</h1>
    
-            <form method="POST" action="{% url 'add_restaurant' %}">
+            <form method="POST" action="{{ url_for('add_restaurant') }}">
                 <div class="mb-3">
                   <label for="restaurant_name" class="form-label">Name</label>
                   <input type="text" class="form-control" id="restaurant_name" name="restaurant_name">
@@ -59,6 +58,6 @@
             
 
         </main>
-        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     </body>
 </html>

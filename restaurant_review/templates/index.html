@@ -1,11 +1,8 @@
-{% load static %}
-{% load restaurant_extras %}
-
 <!doctype html>
 <head>
     <title>Hello Azure - Python Quickstart</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
 
     <style>
         body {
@@ -53,7 +50,7 @@
         <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
             <div class="container">
               <a class="navbar-brand" href="/">
-                <img src="{% static 'images/azure-icon.svg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                <img src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 Azure Restaurant Review
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,8 +87,8 @@
                         {% for restaurant in restaurants %}
                             <tr>
                                 <td>{{ restaurant.name }}</td>
-                                <td>{% star_rating restaurant.avg_rating restaurant.review_count   %}   </td>
-                                <td class="text-end"><a href="{% url 'details' restaurant.id %}" class="btn btn-sm btn-primary">Details</a></td>
+                                <td>{{ star_rating(restaurant.avg_rating, restaurant.review_count)  }}   </td>
+                                <td class="text-end"><a href="{{ url_for('details', id=restaurant.id) }}" class="btn btn-sm btn-primary">Details</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -101,12 +98,12 @@
             {% endif %}
 
             <div class="d-flex justify-content-end">
-                    <a href="{% url 'create_restaurant' %}" class="btn btn-success px-4 gap-3">Add new restaurant</a>
+                    <a href="{{ url_for('create_restaurant') }}" class="btn btn-success px-4 gap-3">Add new restaurant</a>
             </div>
 
 
                  
         </main>
-        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     </body>
 </html>
