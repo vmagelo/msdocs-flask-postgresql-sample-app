@@ -7,7 +7,7 @@ If you need an Azure account, you can [create on for free](https://azure.microso
 Temporary instructions for running:
 
 * clone
-* create .env variables based off of .env.sample
+* specify .env variables based off of .env.example
 * py -m venv .venv
 * .venv\scripts\activate
 * pip install -r requirements.txt
