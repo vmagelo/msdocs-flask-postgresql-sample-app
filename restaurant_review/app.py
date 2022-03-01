@@ -20,7 +20,6 @@ else:
    print("Loading config.production.")
    app.config.from_object('azureproject.production')
 
-print('DATABASE_URI = ' + str(app.config.get('DATABASE_URI')))
 app.config.update(
     SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
     SQLALCHEMY_TRACK_MODIFICATIONS=False,

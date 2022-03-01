@@ -11,7 +11,7 @@ Temporary instructions for running:
 * py -m venv .venv
 * .venv\scripts\activate
 * pip install -r requirements.txt
-* cd restaurant_review
+* cd restaurant_review and run subsequent commands OR set APP_FLASK=restaurant_review/app and don't change directory
 * flask db init
 * flask db migrate -m "first migration"
 * flask run
@@ -20,3 +20,4 @@ To do:
 
 * investigate /admin functionality with Flask-Admin
 * handle 500 error in production
+* move app.py to root folder to avoid need for startup.txt (command) and one less step, [details](https://docs.microsoft.com/en-us/azure/developer/python/tutorial-deploy-app-service-on-linux-04#flask-startup-commands)
