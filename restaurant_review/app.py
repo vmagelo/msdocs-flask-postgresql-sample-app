@@ -7,7 +7,7 @@ from flask_wtf.csrf import CSRFProtect
 from datetime import datetime
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../static')
 csrf = CSRFProtect(app)
 
 # WEBSITE_HOSTNAME exists only in production environment
