@@ -11,10 +11,8 @@ Temporary instructions for running:
 * py -m venv .venv
 * .venv\scripts\activate
 * pip install -r requirements.txt
-* cd restaurant_review and run subsequent commands OR set APP_FLASK=restaurant_review/app and don't change directory
-* flask db init
-* flask db migrate -m "first migration"
-* flask run
+* flask db init and flask db migrate -m "first migration"  (roughly equivalent to django "python manage.py migrate")
+* flask run (equivalent to django "python manage.py runserver")
 
 To do:
 
