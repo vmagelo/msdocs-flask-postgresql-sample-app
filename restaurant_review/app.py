@@ -27,9 +27,6 @@ app.config.update(
 
 # initialize the database connection
 db = SQLAlchemy(app)
-#from restaurant_review.models import Review, Restaurant
-#db.create_all()
-#db.session.commit()
 
 # initialize database migration management
 migrate = Migrate(app, db)
