@@ -19,3 +19,4 @@ Temporary instructions for running:
 To do:
 
 * investigate /admin functionality with Flask-Admin
+* handle 500 error in production
