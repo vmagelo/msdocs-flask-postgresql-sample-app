@@ -19,5 +19,6 @@ Temporary instructions for running:
 To do:
 
 * investigate /admin functionality with Flask-Admin
+* don't deploy /migrations folder (exclude)
 * handle 500 error in production
 * move app.py to root folder to avoid need for startup.txt (command) and one less step, [details](https://docs.microsoft.com/en-us/azure/developer/python/tutorial-deploy-app-service-on-linux-04#flask-startup-commands)
