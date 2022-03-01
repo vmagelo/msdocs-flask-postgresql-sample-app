@@ -18,6 +18,4 @@ Temporary instructions for running:
 
 To do:
 
-* create layout.html and put all common code in there
-* ref bootstrap and others stuff from cdn
 * investigate /admin functionality with Flask-Admin
